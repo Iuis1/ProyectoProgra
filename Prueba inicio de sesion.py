@@ -1,8 +1,10 @@
 
 print("Este es un sistema de prueba de un inicio de seision utilizando unicamente variables")
 
+opciones = 0
+salir = 0
 nomusu1 = 0
-inicio_sesion_usu1 = 0
+
 
 while True:
 
@@ -31,6 +33,26 @@ while True:
                     print(" ")
                     print("Inicio de sesion exitoso")
                     print(" ")
+
+                    opciones = int(input("Desea gestionar el inventario (1) o desea salir (2)?"))
+                if opciones == 1:
+                    #inventario pendiente
+                    print("Disculpe, pero el inventario está en mantenimiento...")
+
+                elif opciones == 2:
+                    salir = str(input("Si desea salir digite ´si´, en el caso contrario digite ´no´"))
+                    
+                    if salir == "si" or salir == "SI" or salir == "Si" or salir == "sI":
+
+                        print("Adios, gracias por su visita!")
+
+                        break
+                            
+
+                    elif salir == "no" or salir == "NO" or salir == "No" or salir == "nO":
+
+                        print("Como desee")
+
                 elif inicio_sesion_contra1 != contra1:
                     print(" ")
                     print("La contrasena ingresada no es valida")
@@ -61,6 +83,27 @@ while True:
                 print("Inicio de sesion exitoso")
                 print(" ")
 
+                opciones = int(input("Desea gestionar el inventario (1) o desea salir (2)?"))
+                if opciones == 1:
+                    #inventario pendiente
+                    print("Disculpe, pero el inventario está en mantenimiento...")
+
+                elif opciones == 2:
+                    salir = str(input("Si desea salir digite ´si´, en el caso contrario digite ´no´"))
+                    
+                    if salir == "si" or salir == "SI" or salir == "Si" or salir == "sI":
+
+                        print("Adios, gracias por su visita!")
+
+                        break
+                            
+
+                    elif salir == "no" or salir == "NO" or salir == "No" or salir == "nO":
+
+                        print("Como desee")
+
+
+
 
         else:
             print(" ")
@@ -90,6 +133,25 @@ while True:
                     print(" ")
                     print("Inicio de sesion exitoso")
                     print(" ")
+
+            opciones = int(input("Desea gestionar el inventario (1) o desea salir (2)?"))
+            if opciones == 1:
+                #inventario pendiente
+                print("Disculpe, pero el inventario está en mantenimiento...")
+
+            elif opciones == 2:
+                salir = str(input("Si desea salir digite ´si´, en el caso contrario digite ´no´"))
+
+                if salir == "si" or salir == "SI" or salir == "Si" or salir == "sI":
+
+                    print("Adios, gracias por su visita!")
+
+                    break
+                    
+
+                elif salir == "no" or salir == "NO" or salir == "No" or salir == "nO":
+
+                    print("Como desee")
 
                 
         elif cambio == "no" or cambio == "No" or cambio == "NO":
