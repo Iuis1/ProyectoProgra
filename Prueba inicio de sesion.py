@@ -238,8 +238,33 @@ while True:
         elif cambio == "no" or cambio == "No" or cambio == "NO":
             
             print("Su ingreso ha sido exitoso")
-            
-       
+    elif inises "4":    
+        i = 1
+    j = 1
+    for filas in matriz:    
+        print("Vehiculos#",i)    
+        i += 1    
+        for columnas in filas:    
+            if j == 1:    
+                print("La marca es",columnas)     
+            elif j == 2:     
+                print("El modelo es",columnas)    
+            elif j == 3:    
+                print("El año es",columnas)     
+            elif j == 4:    
+                print("El cilindraje es",columnas)    
+            elif j == 5:     
+                print("El alquiler por dia es",columnas)    
+            elif j == 6:    
+                print("El precio es",columnas)    
+            elif j == 7:    
+                print("La placa es",columnas)    
+            elif j == 8:    
+                print("El estado es",columnas)    
+            j += 1    
+            if (j == 9):    
+                j = 1
+    
     else:
         print("El valor ingresado no pertenece a un opcion")
         break
