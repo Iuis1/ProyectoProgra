@@ -22,6 +22,16 @@ def listar_vehiculos(vehiculos):
             print("Estado:", estado)
             print()
 
+#Función que busca la placa del vehículo
+def buscar_placa(vehiculos, placa):
+    largo = len(vehiculos)#Toma lo largo de la matriz
+    #Recorre las filas
+    for fila in range(largo):
+        #Compara las placas
+        if(vehiculos[fila][6] == placa):
+            return True
+
+#Función para ingresar un vehículo
 def gestion_inventario(vehiculos):
     print("Gestión de inventario")
     print("Agregar inventario\n")
@@ -76,8 +86,18 @@ def gestion_inventario(vehiculos):
                 precio_de_alquiler = input(">>")
                 print("Ingrese el precio del vehículo", marca, modelo, "número #", j + 1)
                 precio = input(">>")
-                print("Ingrese la placa del vehículo", marca, modelo, "número #", j + 1)
-                placa = input(">>")
+
+                #Determina si ya está la placa en la matriz
+                determinante = False
+                while(determinante == False):
+                    print("Ingrese la placa del vehículo", marca, modelo, "número #", j + 1)
+                    placa = input(">>")
+
+                    if(buscar_placa(vehiculos, placa) == True):
+                        print("La placa ya se encuentra en el sistema")
+                        determinante = False
+                    else:
+                        determinante = True
 
                 # Guarda en la matriz los datos del vehículo
                 vehiculos.append([marca,modelo,anio,cilindraje,precio_de_alquiler,precio,placa,inhabilitado])
@@ -94,7 +114,7 @@ def gestion_inventario(vehiculos):
                 i = "si"
 while True:
 
-    inises=input("Bienvenido desea, crear un usuario(1) / iniciar sesion(2) / ingresar como invitado (3) / visualizar inventario(4)")
+    inises=input("Bienvenido desea: \n Crear un Usuario(1) \n Iniciar Sesión(2) \n Ingresar como Invitado (3) \n Ingresar Inventario (4) \n Visualizar Inventario(5)")
     print(" ")
 
 
@@ -278,6 +298,10 @@ while True:
             print("Su ingreso ha sido exitoso")
 
     elif inises == "4":
+        #Visualizar vehiculos
+        gestion_inventario(vehiculos)
+        
+    elif inises == "5":
         #Visualizar vehiculos
         listar_vehiculos(vehiculos)
           
