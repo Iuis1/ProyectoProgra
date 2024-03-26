@@ -5,6 +5,140 @@ nomusu1 = 0
 #Base de vehículos
 vehiculos = []
 
+#Función para ingresar a una sede
+def sedes():
+    salir = "no"#Variable que determina cuando salir del ciclo
+    while(salir == "no"):
+        print("Ingrese a la sede a la que gusta ingresar: ")
+        print("1 - San José")
+        print("2 - Alajuela")
+        print("3 - Guanacaste")
+        print("4 - Limón")
+        print("5 - Puntarenas")
+        print("6 - Pérez Zeledón")
+        print("7 - Salir")
+        sede = input(">>")
+
+        if(sede == "1"):
+            print("\nBienvenido a la sede de San José")
+            print("Nuestro horario de atención son las 24 horas todos los días\n")
+
+            sal = "no"#Variable que determina cuando salir del ciclo
+            while(sal == "no"):
+                print("1 - Visualizar vehículos \n2 - Reservar Vehículo \n3 - Salir")
+                op = input(">>")
+
+                if(op == "1"):
+                    print("Esta opción está en mantenimiento")
+                elif(op == "2"):
+                    print("Esta opción está en mantenimiento")
+                elif(op == "3"):
+                    print("Usted saldrá correctamente")
+                    sal = "si"
+                else:
+                    print("Ingrese un valor correcto")
+            
+        elif(sede == "2"):
+            print("\nBienvenido a la sede de Alajuela")
+            print("Nuestro horario de atención son las 24 horas todos los días\n")
+
+            sal = "no"#Variable que determina cuando salir del ciclo
+            while(sal == "no"):
+                print("1 - Visualizar vehículos \n2 - Reservar Vehículo \n3 - Salir")
+                op = input(">>")
+
+                if(op == "1"):
+                    print("Esta opción está en mantenimiento")
+                elif(op == "2"):
+                    print("Esta opción está en mantenimiento")
+                elif(op == "3"):
+                    print("Usted saldrá correctamente")
+                    sal = "si"
+                else:
+                    print("Ingrese un valor correcto")
+                    
+        elif(sede == "3"):
+            print("\nBienvenido a la sede de Guanacaste")
+            print("Nuestro horario de atención es de 4:00 am a 11:00 pm\n")
+
+            sal = "no"#Variable que determina cuando salir del ciclo
+            while(sal == "no"):
+                print("1 - Visualizar vehículos \n2 - Reservar Vehículo \n3 - Salir")
+                op = input(">>")
+
+                if(op == "1"):
+                    print("Esta opción está en mantenimiento")
+                elif(op == "2"):
+                    print("Esta opción está en mantenimiento")
+                elif(op == "3"):
+                    print("Usted saldrá correctamente")
+                    sal = "si"
+                else:
+                    print("Ingrese un valor correcto")
+                    
+        elif(sede == "4"):
+            print("\nBienvenido a la sede de Limón")
+            print("Nuestro horario de atención es de 6:00 am a 10:00 pm\n")
+
+            sal = "no"#Variable que determina cuando salir del ciclo
+            while(sal == "no"):
+                print("1 - Visualizar vehículos \n2 - Reservar Vehículo \n3 - Salir")
+                op = input(">>")
+
+                if(op == "1"):
+                    print("Esta opción está en mantenimiento")
+                elif(op == "2"):
+                    print("Esta opción está en mantenimiento")
+                elif(op == "3"):
+                    print("Usted saldrá correctamente")
+                    sal = "si"
+                else:
+                    print("Ingrese un valor correcto")
+                    
+        elif(sede == "5"):
+            print("\nBienvenido a la sede de Puntarenas")
+            print("Nuestro horario de atención es de 5:00 am a 10:00 pm\n")
+
+            sal = "no"#Variable que determina cuando salir del ciclo
+            while(sal == "no"):
+                print("1 - Visualizar vehículos \n2 - Reservar Vehículo \n3 - Salir")
+                op = input(">>")
+
+                if(op == "1"):
+                    print("Esta opción está en mantenimiento")
+                elif(op == "2"):
+                    print("Esta opción está en mantenimiento")
+                elif(op == "3"):
+                    print("Usted saldrá correctamente")
+                    sal = "si"
+                else:
+                    print("Ingrese un valor correcto")
+                    
+        elif(sede == "6"):
+            print("\nBienvenido a la sede de Perez Zeledón")
+            print("Nuestro horario de atención es de 7:00 am a 10:00 pm\n")
+
+            sal = "no"#Variable que determina cuando salir del ciclo
+            while(sal == "no"):
+                print("1 - Visualizar vehículos \n2 - Reservar Vehículo \n3 - Salir")
+                op = input(">>")
+
+                if(op == "1"):
+                    print("Esta opción está en mantenimiento")
+                elif(op == "2"):
+                    print("Esta opción está en mantenimiento")
+                elif(op == "3"):
+                    print("Usted saldrá correctamente")
+                    sal = "si"
+                else:
+                    print("Ingrese un valor correcto")
+                    
+        elif(sede == "7"):
+            print("Usted regresará al menú")
+            salir = "si"
+        else:
+            print("Ingrese un valor correcto")
+
 def listar_vehiculos(vehiculos):
     if len(vehiculos) == 0:
         print("No hay vehículos en el inventario.")
@@ -20,6 +154,7 @@ def listar_vehiculos(vehiculos):
             print("Placa:", vehiculo[6])
             estado = "Disponible" if not vehiculo[7] else "Inhabilitado"
             print("Estado:", estado)
+            print("Sede:", vehiculo[8])
             print()
 
 #Función que busca la placa del vehículo
@@ -60,6 +195,7 @@ def gestion_inventario(vehiculos):
         placa = "indefinido"
         inhabilitado = False
         cantidad_de_vehículos = 0
+        sede = "indefinido"
 
         # Variable para determinar cuando termina el ciclo
         i = "si"
@@ -71,7 +207,7 @@ def gestion_inventario(vehiculos):
             print("Ingrese el modelo del vehículo: ")
             modelo = input(">>")
 
-            # Solicitus de cantidad de vehículos de marca y modelo
+            # Solicitud de cantidad de vehículos de marca y modelo
             print("Ingrese la cantidad de vehículos que requiere agregar de ese modelo: ")
             cantidad_de_vehículos = input(">>")
             cantidad_de_vehículos = int(cantidad_de_vehículos)
@@ -99,8 +235,38 @@ def gestion_inventario(vehiculos):
                     else:
                         determinante = True
 
+                #Menú paar ingresar la sede
+                valido = "no"
+                while(valido == "no"):
+                    print("Ingrese la sede del vehículo", marca, modelo, "número #", j + 1)
+                    print("-> San José (1), Alajuela (2), Guanacaste (3), Limón (4), Puntarenas (5) o Pérez Zeledón (6)")
+                    sede = input(">>")
+
+                    #Condicional para guardar la sede
+                    if(sede == "1"):
+                        sede = "San José"
+                        valido = "si"
+                    elif(sede == "2"):
+                        sede = "Alajuela"
+                        valido = "si"
+                    elif(sede == "3"):
+                        sede = "Guanacaste"
+                        valido = "si"
+                    elif(sede == "4"):
+                        sede = "Limón"
+                        valido = "si"
+                    elif(sede == "5"):
+                        sede = "Puntarenas"
+                        valido = "si"
+                    elif(sede == "6"):
+                        sede = "Pérez Zeledón"
+                        valido = "si"
+                    else:
+                        print("Ingrese un valor valido")
+                        valido == "no"
+
                 # Guarda en la matriz los datos del vehículo
-                vehiculos.append([marca,modelo,anio,cilindraje,precio_de_alquiler,precio,placa,inhabilitado])
+                vehiculos.append([marca,modelo,anio,cilindraje,precio_de_alquiler,precio,placa,inhabilitado,sede])
 
             # Determina si se continúa en el ciclo
             print("¿Desea seguir ingresando vehículos? si/no")
@@ -114,7 +280,7 @@ def gestion_inventario(vehiculos):
                 i = "si"
 while True:
 
-    inises=input("Bienvenido desea: \n Crear un Usuario(1) \n Iniciar Sesión(2) \n Ingresar como Invitado (3) \n Ingresar Inventario (4) \n Visualizar Inventario(5)")
+    inises=input("Bienvenido desea: \n Crear un Usuario(1) \n Iniciar Sesión(2) \n Ingresar como Invitado (3) \n Ingresar Inventario (4) \n Visualizar Inventario(5) \n")
     print(" ")
 
 
@@ -140,7 +306,7 @@ while True:
                     print("Inicio de sesion exitoso")
                     print(" ")
 
-                    opciones = int(input("Desea gestionar el inventario (1) ver los vehiculos disponibles(2) o salir (3)?"))
+                    opciones = int(input("Desea gestionar el inventario (1) ver los vehiculos disponibles(2) ingresar sede(3) o salir (4)?"))
                 if opciones == 1:
                     #Gestion Inventarios
                     gestion_inventario(vehiculos)
@@ -148,8 +314,12 @@ while True:
                 elif opciones== 2:
                     #Visualizar vehiculos
                     listar_vehiculos(vehiculos)
+
+                elif opciones== 3:
+                    #Invoca la función de sedes
+                    sedes()
                     
-                elif opciones == 3:
+                elif opciones == 4:
                     salir = str(input("Si desea salir digite ´si´, en el caso contrario digite ´no´"))
                     
                     if salir == "si" or salir == "SI" or salir == "Si" or salir == "sI":
@@ -193,21 +363,17 @@ while True:
                 print("Inicio de sesion exitoso")
                 print(" ")
 
-                opciones = int(input("Desea gestionar el inventario (1) ver los vehiculos disponibles(2) o salir (3)?"))
+                opciones = int(input("Desea gestionar el inventario (1) ver los vehiculos disponibles(2) ingresar sede(3) o salir (4)?"))
                 if opciones == 1:
                     gestion_inventario(vehiculos)
 
 
 
 
-                elif opciones == 3:
+                elif opciones == 2:
                     #Visualizar vehiculos
                     listar_vehiculos(vehiculos)
                     
-
-        
-
-                elif opciones == 3:
                     salir = str(input("Si desea salir digite ´si´, en el caso contrario digite ´no´"))
                     
                     if salir == "si" or salir == "SI" or salir == "Si" or salir == "sI":
@@ -220,9 +386,13 @@ while True:
                     elif salir == "no" or salir == "NO" or salir == "No" or salir == "nO":
 
                         print("Como desee")
+
+                elif opciones== 3:
+                    #Invoca la función de sedes
+                    sedes()
                     
 
-                elif opciones == 2:
+                elif opciones == 4:
                     salir = str(input("Si desea salir digite ´si´, en el caso contrario digite ´no´"))
                     
                     if salir == "si" or salir == "SI" or salir == "Si" or salir == "sI":
