@@ -415,10 +415,17 @@ while True:
             print(" ")
 
     elif inises == "3":
-        print(" ")
-        print("Al iniciar como usuario no va a poder tener los mismos privilegios que si tienen")
-        print("Los usuarios registrados")
-        print(" ")
+         eleccion_invitado=int(input("Visualizar inventario,iniciar sesion y salir"))
+        if eleccion_invitado==1:
+            listar_vehiculos(vehiculos)
+        elif eleccion_invitado==2:
+            print("")
+            print("al iniciar como usuario invitado no tiene el mismo poder que a uno registrado")
+            print("Los usuarios registrados")
+            print("")    
+        elif eleccion_invitado==3:   
+         print("adios")
+       
 
         cambio = str(input("Desea iniciar sesión (si) o (no):"))
         
