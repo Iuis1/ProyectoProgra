@@ -5,6 +5,36 @@ nomusu1 = 0
 #Base de vehículos
 vehiculos = []
 
+#Función para mostrar el inventario por sede
+def inventario_sedes(sede):
+    #Variable para determinar si hay en la sede
+    paso = "no"
+    
+    print("\nLos vehículos de la sede", sede, "son:\n")
+    
+    largo = len(vehiculos)#Toma lo largo de la matriz
+    #Recorre las filas
+    for vehiculo in range(largo):
+        #Compara las  sede
+        if(vehiculos[vehiculo][8] == sede):
+            paso = "si"#Indica que si hay vehiculos en esa sede
+            print("Marca:", vehiculos[vehiculo][0])
+            print("Modelo:", vehiculos[vehiculo][1])
+            print("Año:", vehiculos[vehiculo][2])
+            print("Cilindraje:", vehiculos[vehiculo][3])
+            print("Precio de alquiler por día:", vehiculos[vehiculo][4])
+            print("Precio:", vehiculos[vehiculo][5])
+            print("Placa:", vehiculos[vehiculo][6])
+            estado = "Disponible" if not vehiculos[vehiculo][7] else "Inhabilitado"
+            print("Estado:", estado)
+            print("Sede:", vehiculos[vehiculo][8])
+            print()
+
+    #Mensaje de que no hay sedes
+    if(paso == "no"):
+        print("No hay vehículos en esta sede\n")
+            
+
 #Función para ingresar a una sede
 def sedes():
     salir = "no"#Variable que determina cuando salir del ciclo
@@ -29,7 +59,7 @@ def sedes():
                 op = input(">>")
 
                 if(op == "1"):
-                    print("Esta opción está en mantenimiento")
+                    inventario_sedes("San José")
                 elif(op == "2"):
                     print("Esta opción está en mantenimiento")
                 elif(op == "3"):
@@ -48,7 +78,7 @@ def sedes():
                 op = input(">>")
 
                 if(op == "1"):
-                    print("Esta opción está en mantenimiento")
+                    inventario_sedes("Alajuela")
                 elif(op == "2"):
                     print("Esta opción está en mantenimiento")
                 elif(op == "3"):
@@ -67,7 +97,7 @@ def sedes():
                 op = input(">>")
 
                 if(op == "1"):
-                    print("Esta opción está en mantenimiento")
+                    inventario_sedes("Guanacaste")
                 elif(op == "2"):
                     print("Esta opción está en mantenimiento")
                 elif(op == "3"):
@@ -86,7 +116,7 @@ def sedes():
                 op = input(">>")
 
                 if(op == "1"):
-                    print("Esta opción está en mantenimiento")
+                    inventario_sedes("Limón")
                 elif(op == "2"):
                     print("Esta opción está en mantenimiento")
                 elif(op == "3"):
@@ -105,7 +135,7 @@ def sedes():
                 op = input(">>")
 
                 if(op == "1"):
-                    print("Esta opción está en mantenimiento")
+                    inventario_sedes("Puntarenas")
                 elif(op == "2"):
                     print("Esta opción está en mantenimiento")
                 elif(op == "3"):
@@ -115,7 +145,7 @@ def sedes():
                     print("Ingrese un valor correcto")
                     
         elif(sede == "6"):
-            print("\nBienvenido a la sede de Perez Zeledón")
+            print("\nBienvenido a la sede de Pérez Zeledón")
             print("Nuestro horario de atención es de 7:00 am a 10:00 pm\n")
 
             sal = "no"#Variable que determina cuando salir del ciclo
@@ -124,7 +154,7 @@ def sedes():
                 op = input(">>")
 
                 if(op == "1"):
-                    print("Esta opción está en mantenimiento")
+                    inventario_sedes("Pérez Zeledón")
                 elif(op == "2"):
                     print("Esta opción está en mantenimiento")
                 elif(op == "3"):
@@ -235,7 +265,7 @@ def gestion_inventario(vehiculos):
                     else:
                         determinante = True
 
-                #Menú paar ingresar la sede
+                #Menú para ingresar la sede
                 valido = "no"
                 while(valido == "no"):
                     print("Ingrese la sede del vehículo", marca, modelo, "número #", j + 1)
@@ -278,6 +308,9 @@ def gestion_inventario(vehiculos):
             else:
                 print("Ingrese un valor correcto")
                 i = "si"
+    else:
+        print("\nIngrese el usuario y contraseña correctos\n")
+        
 while True:
 
     inises=input("Bienvenido desea: \n Crear un Usuario(1) \n Iniciar Sesión(2) \n Ingresar como Invitado (3) \n Ingresar Inventario (4) \n Visualizar Inventario(5) \n")
@@ -415,7 +448,7 @@ while True:
             print(" ")
 
     elif inises == "3":
-         eleccion_invitado=int(input("Visualizar inventario,iniciar sesion y salir"))
+        eleccion_invitado=int(input("Visualizar inventario,iniciar sesion y salir"))
         if eleccion_invitado==1:
             listar_vehiculos(vehiculos)
         elif eleccion_invitado==2:
@@ -423,8 +456,8 @@ while True:
             print("al iniciar como usuario invitado no tiene el mismo poder que a uno registrado")
             print("Los usuarios registrados")
             print("")    
-        elif eleccion_invitado==3:   
-         print("adios")
+        elif eleccion_invitado==3:
+            print("adios")
        
 
         cambio = str(input("Desea iniciar sesión (si) o (no):"))
