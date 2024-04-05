@@ -3,7 +3,223 @@ salir = 0
 nomusu1 = 0
 
 #Base de vehículos
-vehiculos = []
+vehiculos = [['Toyota', 'Modelo 44', '2005', '400rp', '1300', '430000', 'BYR505', True, 'San Jose'], ['Toyota', 'Modelo 2', '2006', '550rp', '2000', '500000', 'TRY788', True, 'Alajuela'], ['Toyota', 'Modelo 2', '2', '2', '2', '2', '2', False, 'Alajuela'], ['Toyota', 'Modelo 2', '2', '2', '2', '2', '23', False, 'Limon'], ['Lambo', 'Modelo 33', '2003', '500', '1200', '1300000', 'TYR555', False, 'Guanacaste'], ['Lambo', 'Modelo 33', '2020', '400', '2000', '300000', 'POP199', False, 'Alajuela']]
+
+#Función para ingresar a una sede
+reservas = [["123123","CJ","+506 13893271", "30000000" ,[]]]
+
+horarios = [['San Jose', '0', '24'], ['Alajuela', '0', '24'], ['Guanacaste', '4', '23'], ['Limon', '6', '22'], ['Puntarenas', '5', '22'], ['Perez Zeledon', '7', '22']]
+
+
+
+def listaModelo(marca):
+    lista2 = []
+    lista3 = []
+    marca = str(marca)
+    print(marca)
+    for i in vehiculos:
+        if i[0].upper() == marca.upper():
+            lista2 += [i]
+    cont = 0
+    cont2 = 0
+    for i in lista2:
+        x = i[1]
+        for j in lista2:
+            if x == j[1]:
+                if j[7] == False:
+                    cont2 +=1
+
+
+        if [marca,x, cont2] not in lista3:
+            lista3 += [[marca, x, cont2]]
+            
+        cont2 = 0
+    estado = ""
+    for i in lista3:
+        if i[2]==0:
+            estado = "No Disponible"
+        else:
+            estado = i[2]
+        print("    ",i[0],i[1],": ", estado)
+
+def marcas():
+    lista = []
+    for i in vehiculos:
+        if i[0] not in lista:
+            lista += [i[0]]
+    return lista
+        
+def reservar(marca, sede, ced):
+    global reservas
+    salir = False
+    while salir == False:
+        print()
+        model = input("Escriba el modelo: ")
+        print()
+        x = True
+        find = False
+        for i in vehiculos:
+
+            if i[0] == marca and i[1]== model and i[7] == False and find == False and sede == i[8].upper():
+                print("Disponible")
+                veh = i
+                find = True
+        if x == False:
+            x = "Disculpe " + model + " no disponible"
+        if x == True:
+            print()
+            print("Para reservar necesitamos que nos indique un dia y hora de entrega", sede)
+            print()
+            print("Escriba la hora de entre las 0 a 24, indique con un numero entero en caso de que sea")
+            print("en punto en otro caso, indicar minutos con numero con decimal. (Ej: 1.30)")
+            hora = input("Hora: ")
+            print()
+            dia= input("Indique la cantidad de dias que desea reservar el vehiculo: ")
+            print()
+            carro = []
+            for i in horarios:
+                if i[0].upper() == sede:
+                    print("Sede correcta")
+                    if float(hora)>int(i[1]) and float(hora)<int(i[2]):
+                        print("Horario Disponible!")
+
+                        priceA = ''
+                        for i in vehiculos:
+                            if i[1]==model and priceA == '':
+                                priceA = int(i[4])
+                                priceV = int(i[5])
+                        seguro = priceV * 0.045 + 10
+                        priceR = priceA * int(dia) + seguro
+                        
+                        
+                        for i in reservas:
+                            if i[0]==ced:
+                                print()
+                                print("Su dinero es: ", i[3])
+                                print("El monto para reservar es de : ", priceR)
+                                print()
+                                print("Desea realizar la reserva?")
+                                des = input("Si o No: ")
+                                if des.upper() == "SI":
+                                    if int(i[3])-priceR < 0:
+                                        print("No se puede realizar la reserva")
+                                        salir = True
+
+                                    else:
+                                        print()
+                                        print("Este es el monto restante de su cuenta: ", int(i[3])-priceR)
+                                        print()
+                                        i[3] = int(i[3])-priceR
+                                        i[4] += [veh]
+                                        print("Vehiculo reservado: ", veh[0], veh[1], veh[8])
+                                        for i in vehiculos:
+                                            if i == veh:
+                                                i[7] = True
+                                        
+                                        salir = True
+
+                                elif des.upper() == "NO":
+                                    salir = True
+
+                                
+                        
+                    else:
+                        print("Disculpe, la hora especificada de ", dia,"|", hora," no es permitida en la sede ", i[0],)
+                        print("estos son los horarios: ")
+                        print()
+                        print("Sede San Jose: 00:00-23:59")
+                        print("Sede Alajuela: 00:00-23:59")
+                        print("Sede Guanacaste: 04:00-23:00")
+                        print("Sede Limon: 06:00-22:00")
+                        print("Sede Puntarenas:  05:00-22:00")
+                        print("Sede Perez Zeledon: 07:00-22:00")
+
+                
+        else:
+            print(x)
+
+
+
+def verReservas():
+    print()
+    crear = True
+    while crear == True:
+        print()
+        ced = input("Digite su cedula: " )
+        lista = []
+        cont = 0
+        global reservas
+        for i in reservas:
+            lista += [i[0]]
+            if i == ced:
+                x = cont
+            cont += 1
+        if ced not in lista:
+            usu = input("Digite su usuario: ")
+            num = input("Digite su numero: ")
+            din = input("Digite su dinero: ")
+            reserva = [ced,usu,num,din,[]]
+            reservas += [reserva]
+            
+        else:
+            print()
+            print("Revisar Listado de vehiculos (1), revisar vehiculos reservados (2)")
+            print()
+            validar = True
+            while validar:
+                res = input("Digite un numero (1) o (2): ")   
+                if res != '1' and res!= '2':
+                    print("Respuesta Invalida")
+                elif res == '1':
+                    print()
+                    cont= 0
+                    listaMarcas = []
+                    listar_vehiculos(vehiculos)
+                    for i in marcas():
+                        print(i, "(",cont,")")
+                        listaMarcas += [[i, cont]]
+                        cont += 1
+                    print()
+                    elegir = int(input("Eliga la marca (numero): "))
+                    cont = 0
+                    for i in listaMarcas:
+                        if i[1] == elegir:
+                            elegir = i[0]
+                    print()
+                    print("Sede San Jose: 00:00-23:59")
+                    print("Sede Alajuela: 00:00-23:59")
+                    print("Sede Guanacaste: 04:00-23:00")
+                    print("Sede Limon: 06:00-22:00")
+                    print("Sede Puntarenas:  05:00-22:00")
+                    print("Sede Perez Zeledon: 07:00-22:00")
+                    print()
+                    sal = False
+                    while sal == False:
+                        sed = input("Digite el nombre de su sede (sin tildes): ")
+                        for i in horarios:
+                            if sed.upper() == i[0].upper():
+                                sal = True
+                                break
+                        if sal == False:
+                            print("sede no disponible")
+                    sed = sed.upper()
+                    print()
+                    listaModelo(elegir)
+                    reservar(elegir, sed, ced)
+                    validar = False
+                    crear = False
+
+                elif res == '2':
+                    for i in reservas:
+                        if i[0] == ced:
+                            print("Vehiculos reservados: ", i[4])
+
+        
+    return
+    
+    
+
+
 
 #Función para mostrar el inventario por sede
 def inventario_sedes(sede):
@@ -61,7 +277,7 @@ def sedes():
                 if(op == "1"):
                     inventario_sedes("San José")
                 elif(op == "2"):
-                    print("Esta opción está en mantenimiento")
+                    verReservas()
                 elif(op == "3"):
                     print("Usted saldrá correctamente")
                     sal = "si"
@@ -80,7 +296,7 @@ def sedes():
                 if(op == "1"):
                     inventario_sedes("Alajuela")
                 elif(op == "2"):
-                    print("Esta opción está en mantenimiento")
+                    verReservas()
                 elif(op == "3"):
                     print("Usted saldrá correctamente")
                     sal = "si"
@@ -99,7 +315,7 @@ def sedes():
                 if(op == "1"):
                     inventario_sedes("Guanacaste")
                 elif(op == "2"):
-                    print("Esta opción está en mantenimiento")
+                    verReservas()
                 elif(op == "3"):
                     print("Usted saldrá correctamente")
                     sal = "si"
@@ -118,7 +334,7 @@ def sedes():
                 if(op == "1"):
                     inventario_sedes("Limón")
                 elif(op == "2"):
-                    print("Esta opción está en mantenimiento")
+                    verReservas()
                 elif(op == "3"):
                     print("Usted saldrá correctamente")
                     sal = "si"
@@ -137,7 +353,7 @@ def sedes():
                 if(op == "1"):
                     inventario_sedes("Puntarenas")
                 elif(op == "2"):
-                    print("Esta opción está en mantenimiento")
+                    verReservas()
                 elif(op == "3"):
                     print("Usted saldrá correctamente")
                     sal = "si"
@@ -156,7 +372,7 @@ def sedes():
                 if(op == "1"):
                     inventario_sedes("Pérez Zeledón")
                 elif(op == "2"):
-                    print("Esta opción está en mantenimiento")
+                    verReservas()
                 elif(op == "3"):
                     print("Usted saldrá correctamente")
                     sal = "si"
@@ -274,7 +490,7 @@ def gestion_inventario(vehiculos):
 
                     #Condicional para guardar la sede
                     if(sede == "1"):
-                        sede = "San José"
+                        sede = "San Jose"
                         valido = "si"
                     elif(sede == "2"):
                         sede = "Alajuela"
@@ -283,13 +499,13 @@ def gestion_inventario(vehiculos):
                         sede = "Guanacaste"
                         valido = "si"
                     elif(sede == "4"):
-                        sede = "Limón"
+                        sede = "Limon"
                         valido = "si"
                     elif(sede == "5"):
                         sede = "Puntarenas"
                         valido = "si"
                     elif(sede == "6"):
-                        sede = "Pérez Zeledón"
+                        sede = "Perez Zeledon"
                         valido = "si"
                     else:
                         print("Ingrese un valor valido")
@@ -339,7 +555,7 @@ while True:
                     print("Inicio de sesion exitoso")
                     print(" ")
 
-                    opciones = int(input("Desea gestionar el inventario (1) ver los vehiculos disponibles(2) ingresar sede(3) o salir (4)?"))
+                    opciones = int(input("Desea gestionar el inventario (1) ver los vehiculos disponibles(2) ingresar sede(3) reservar(4) o salir (5)?"))
                 if opciones == 1:
                     #Gestion Inventarios
                     gestion_inventario(vehiculos)
@@ -351,8 +567,12 @@ while True:
                 elif opciones== 3:
                     #Invoca la función de sedes
                     sedes()
+
+                elif opciones== 4:
+                    #reservas
+                    verReservas()
                     
-                elif opciones == 4:
+                elif opciones == 5:
                     salir = str(input("Si desea salir digite ´si´, en el caso contrario digite ´no´"))
                     
                     if salir == "si" or salir == "SI" or salir == "Si" or salir == "sI":
@@ -396,7 +616,7 @@ while True:
                 print("Inicio de sesion exitoso")
                 print(" ")
 
-                opciones = int(input("Desea gestionar el inventario (1) ver los vehiculos disponibles(2) ingresar sede(3) o salir (4)?"))
+                opciones = int(input("Desea gestionar el inventario (1) ver los vehiculos disponibles(2) ingresar sede(3) reservar(4) o salir(5)?"))
                 if opciones == 1:
                     gestion_inventario(vehiculos)
 
@@ -423,9 +643,12 @@ while True:
                 elif opciones== 3:
                     #Invoca la función de sedes
                     sedes()
-                    
 
-                elif opciones == 4:
+                elif opciones== 4:
+                    #reservar
+                    verReservas()
+
+                elif opciones == 5:
                     salir = str(input("Si desea salir digite ´si´, en el caso contrario digite ´no´"))
                     
                     if salir == "si" or salir == "SI" or salir == "Si" or salir == "sI":
@@ -478,7 +701,7 @@ while True:
                     print("Inicio de sesion exitoso")
                     print(" ")
 
-            opciones = int(input("Desea gestionar el inventario (1) Ver los vehiculos disponibles(2) o salir (3)?"))
+            opciones = int(input("Desea gestionar el inventario (1) Ver los vehiculos disponibles(2) resesrvar(3) o salir(4)?"))
             if opciones == 1:
                 #Gestion Inventarios
                 gestion_inventario(vehiculos)
@@ -486,9 +709,13 @@ while True:
             elif opciones == 2:
                 #Visualizar vehiculos
                 listar_vehiculos(vehiculos)
-          
+
+            elif opciones== 3:
+                #reservar
+                verReservas()
+
                 
-            elif opciones == 3:
+            elif opciones == 4:
                 salir = str(input("Si desea salir digite ´si´, en el caso contrario digite ´no´"))
 
                 if salir == "si" or salir == "SI" or salir == "Si" or salir == "sI":
