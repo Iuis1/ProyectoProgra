@@ -5,7 +5,7 @@ nomusu1 = 0
 #Base de vehículos
 vehiculos = [['Toyota', 'Modelo 44', '2005', '400rp', '1300', '430000', 'BYR505', True, 'San Jose'], ['Toyota', 'Modelo 2', '2006', '550rp', '2000', '500000', 'TRY788', True, 'Alajuela'], ['Toyota', 'Modelo 2', '2', '2', '2', '2', '2', False, 'Alajuela'], ['Toyota', 'Modelo 2', '2', '2', '2', '2', '23', False, 'Limon'], ['Lambo', 'Modelo 33', '2003', '500', '1200', '1300000', 'TYR555', False, 'Guanacaste'], ['Lambo', 'Modelo 33', '2020', '400', '2000', '300000', 'POP199', False, 'Alajuela']]
 
-#Función para ingresar a una sede
+
 reservas = [["123123","CJ","+506 13893271", "30000000" ,[]]]
 
 horarios = [['San Jose', '0', '24'], ['Alajuela', '0', '24'], ['Guanacaste', '4', '23'], ['Limon', '6', '22'], ['Puntarenas', '5', '22'], ['Perez Zeledon', '7', '22']]
