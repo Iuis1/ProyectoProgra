@@ -1,0 +1,11 @@
+Toyota,Modelo 44,2005,400rp,1300,430000,BYR505,False,San Jose
+Toyota,Modelo 2,2006,550rp,2000,500000,TRY788,True,Alajuela
+Toyota,Modelo 2,2016,320rp,1400,600000,FDP-54,True,Alajuela
+Toyota,Modelo 2,2001,300,2000,800000,XRL-8,False,Limon
+Lambo,Modelo 33,2003,500,1500,1300000,TYR555,True,Guanacaste
+Lambo,Modelo 33,2020,400,2000,3000000,POP199,False,Alajuela
+Toyota,Yaris,2002,200,20000,2000000,SCF-345,True,San Jose
+Toyota,Yaris,2002,200,20000,2000000,XRL8-26,False,San Jose
+Toyota,Yaris,2001,200,20000,2000000,23568945,False,Alajuela
+Susuki,Vitara,2016,300,30000,3000000,LNJ-321,False,Guanacaste
+Chevrolet,Onix,2000,400,40000,4000000,TRZ-214,False,Puntarenas

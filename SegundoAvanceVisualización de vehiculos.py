@@ -3,14 +3,83 @@ salir = 0
 nomusu1 = 0
 
 #Base de vehículos
-vehiculos = [['Toyota', 'Modelo 44', '2005', '400rp', '1300', '430000', 'BYR505', True, 'San Jose'], ['Toyota', 'Modelo 2', '2006', '550rp', '2000', '500000', 'TRY788', True, 'Alajuela'], ['Toyota', 'Modelo 2', '2', '2', '2', '2', '2', False, 'Alajuela'], ['Toyota', 'Modelo 2', '2', '2', '2', '2', '23', False, 'Limon'], ['Lambo', 'Modelo 33', '2003', '500', '1200', '1300000', 'TYR555', False, 'Guanacaste'], ['Lambo', 'Modelo 33', '2020', '400', '2000', '300000', 'POP199', False, 'Alajuela']]
-
+vehiculos = []
 
 reservas = [["123123","CJ","+506 13893271", "30000000" ,[]]]
 
 horarios = [['San Jose', '0', '24'], ['Alajuela', '0', '24'], ['Guanacaste', '4', '23'], ['Limon', '6', '22'], ['Puntarenas', '5', '22'], ['Perez Zeledon', '7', '22']]
 
+#Función para leer los vehiculos de la base de datos
+def leer_vehiculos(vehiculos):
 
+    #Variables para guardar los datos
+    marca = "indefinido"
+    anio = 0
+    modelo = "indefinido"
+    cilindraje = 0
+    precio_de_alquiler = 0
+    precio = 0
+    placa = "indefinido"
+    inhabilitado = False
+    sede = "indefinido"
+
+    #Carga el archivo en una variable para leer
+    file = open("Vehiculos.txt","r")
+    
+    #Recorre el archivo
+    for linea in file:
+
+        #Verifica que la línea no esté vacía
+        if(linea != "\n"):
+            
+            entrada2 = linea.strip("\n")#Elimina el enter
+            entrada_dividida = entrada2.split(",")#Subdivide en un vector el vehículo
+            
+            marca = entrada_dividida[0]
+            modelo = entrada_dividida[1]
+            anio = entrada_dividida[2]
+            cilindraje = entrada_dividida[3]
+            precio_de_alquiler = entrada_dividida[4]
+            precio = entrada_dividida[5]
+            placa = entrada_dividida[6]
+            if(entrada_dividida[7] == "True"):
+                inhabilitado = True
+            else:
+                inhabilitado = False
+            sede = entrada_dividida[8]
+            vehiculos.append([marca,modelo,anio,cilindraje,precio_de_alquiler,precio,placa,inhabilitado,sede])
+
+    file.close()
+
+#Función para guardar los vehiculos en la base de datos
+def escribir_vehiculos(vehiculos):
+    #Carga el archivo en una variable para escribir
+    file = open("Vehiculos.txt","w")
+
+    #Recorre la matriz para escribir en la base de datos cada vehículo, con cada dato
+    for vehiculo in vehiculos:
+        file.write(vehiculo[0])
+        file.write(",")
+        file.write(vehiculo[1])
+        file.write(",")
+        file.write(vehiculo[2])
+        file.write(",")
+        file.write(vehiculo[3])
+        file.write(",")
+        file.write(vehiculo[4])
+        file.write(",")
+        file.write(vehiculo[5])
+        file.write(",")
+        file.write(vehiculo[6])
+        file.write(",")
+        if(vehiculo[7] == True):
+            file.write("True")
+        else:
+            file.write("False")
+        file.write(",")
+        file.write(vehiculo[8])
+        file.write("\n")
+    file.close()
 
 def listaModelo(marca):
     lista2 = []
@@ -180,7 +249,7 @@ def verReservas():
                         listaMarcas += [[i, cont]]
                         cont += 1
                     print()
-                    elegir = int(input("Eliga la marca (numero): "))
+                    elegir = int(input("Elija la marca (numero): "))
                     cont = 0
                     for i in listaMarcas:
                         if i[1] == elegir:
@@ -275,7 +344,7 @@ def sedes():
                 op = input(">>")
 
                 if(op == "1"):
-                    inventario_sedes("San José")
+                    inventario_sedes("San Jose")
                 elif(op == "2"):
                     verReservas()
                 elif(op == "3"):
@@ -332,7 +401,7 @@ def sedes():
                 op = input(">>")
 
                 if(op == "1"):
-                    inventario_sedes("Limón")
+                    inventario_sedes("Limon")
                 elif(op == "2"):
                     verReservas()
                 elif(op == "3"):
@@ -515,20 +584,24 @@ def gestion_inventario(vehiculos):
                 vehiculos.append([marca,modelo,anio,cilindraje,precio_de_alquiler,precio,placa,inhabilitado,sede])
 
             # Determina si se continúa en el ciclo
-            print("¿Desea seguir ingresando vehículos? si/no")
+            print("¿Desea seguir ingresando vehiculos? si/no")
             i = input(">>")
             if(i == "no" or i == "No" or i == "NO"):
                 print("Usted regresará al menú\n")
             elif(i == "si" or i == "Si" or i == "SI"):
-                print("Ingrese un nuevo Vehículo")
+                print("Ingrese un nuevo vehículo")
             else:
                 print("Ingrese un valor correcto")
                 i = "si"
     else:
         print("\nIngrese el usuario y contraseña correctos\n")
-        
-while True:
 
+#Carga la base de datos
+leer_vehiculos(vehiculos)
+
+#Ingresa al ciclo del menú
+while True:
+    
     inises=input("Bienvenido desea: \n Crear un Usuario(1) \n Iniciar Sesión(2) \n Ingresar como Invitado (3) \n Ingresar Inventario (4) \n Visualizar Inventario(5) \n")
     print(" ")
 
@@ -559,6 +632,8 @@ while True:
                 if opciones == 1:
                     #Gestion Inventarios
                     gestion_inventario(vehiculos)
+                    #Carga a la base de datos
+                    escribir_vehiculos(vehiculos)
                     
                 elif opciones== 2:
                     #Visualizar vehiculos
@@ -619,6 +694,8 @@ while True:
                 opciones = int(input("Desea gestionar el inventario (1) ver los vehiculos disponibles(2) ingresar sede(3) reservar(4) o salir(5)?"))
                 if opciones == 1:
                     gestion_inventario(vehiculos)
+                    #Carga a la base de datos
+                    escribir_vehiculos(vehiculos)
 
 
 
@@ -705,6 +782,8 @@ while True:
             if opciones == 1:
                 #Gestion Inventarios
                 gestion_inventario(vehiculos)
+                #Carga a la base de datos
+                escribir_vehiculos(vehiculos)
                 
             elif opciones == 2:
                 #Visualizar vehiculos
@@ -737,6 +816,8 @@ while True:
     elif inises == "4":
         #Visualizar vehiculos
         gestion_inventario(vehiculos)
+        #Carga a la base de datos
+        escribir_vehiculos(vehiculos)
         
     elif inises == "5":
         #Visualizar vehiculos
