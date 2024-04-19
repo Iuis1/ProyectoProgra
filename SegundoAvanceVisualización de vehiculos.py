@@ -4,10 +4,28 @@ nomusu1 = 0
 
 #Base de vehículos
 vehiculos = []
-
-reservas = [["123123","CJ","+506 13893271", "30000000" ,[]]]
+reservas = []
 
 horarios = [['San Jose', '0', '24'], ['Alajuela', '0', '24'], ['Guanacaste', '4', '23'], ['Limon', '6', '22'], ['Puntarenas', '5', '22'], ['Perez Zeledon', '7', '22']]
+
+#Funcion para subir reservas
+
+def subirReservas(): #Sube las reservas al archivo Reservas.txt
+    global reservas
+    archivo = open("Reservas.txt", "w")
+    archivo.write(str(reservas))
+    archivo.close()
+
+def guardarReservas(): #Guarda las reservas en la variable global
+    global reservas
+    archivo = open("Reservas.txt", "r")
+    todo = archivo.read()
+    todo = eval(todo) #A falta de un metodo mejor, use Eval
+    reservas = todo
+    archivo.close()
+
+guardarReservas()
+subirReservas()
 
 #Función para leer los vehiculos de la base de datos
 def leer_vehiculos(vehiculos):
@@ -27,14 +45,13 @@ def leer_vehiculos(vehiculos):
     file = open("Vehiculos.txt","r")
     
     #Recorre el archivo
-    for linea in file:
+    for linea in file: #ALLAN CAMBIO DE :OPEN A ESTO
+        if(linea != "\n"): #Verifica que la línea no esté vacía
 
-        #Verifica que la línea no esté vacía
-        if(linea != "\n"):
-            
             entrada2 = linea.strip("\n")#Elimina el enter
+
             entrada_dividida = entrada2.split(",")#Subdivide en un vector el vehículo
-            
+
             marca = entrada_dividida[0]
             modelo = entrada_dividida[1]
             anio = entrada_dividida[2]
@@ -48,7 +65,6 @@ def leer_vehiculos(vehiculos):
                 inhabilitado = False
             sede = entrada_dividida[8]
             vehiculos.append([marca,modelo,anio,cilindraje,precio_de_alquiler,precio,placa,inhabilitado,sede])
-
     file.close()
 
 #Función para guardar los vehiculos en la base de datos
@@ -81,17 +97,17 @@ def escribir_vehiculos(vehiculos):
         file.write("\n")
     file.close()
 
-def listaModelo(marca):
+def listaModelo(marca, sede): #Devuelve los modelos disponibles de la marca dependiendo de su sede
     lista2 = []
     lista3 = []
     marca = str(marca)
     print(marca)
-    for i in vehiculos:
-        if i[0].upper() == marca.upper():
+    for i in vehiculos: #Crea una lista con todos los vehiculos de la marca y sede elegidas
+        if i[0].upper() == marca.upper() and i[8].upper() == sede.upper():
             lista2 += [i]
     cont = 0
     cont2 = 0
-    for i in lista2:
+    for i in lista2: #Cuenta la cantidad de vehiculos disponibles de cada modelo
         x = i[1]
         for j in lista2:
             if x == j[1]:
@@ -99,42 +115,49 @@ def listaModelo(marca):
                     cont2 +=1
 
 
-        if [marca,x, cont2] not in lista3:
+        if [marca ,x, cont2] not in lista3: #Guarda la marca, su modelo y la cantidad Ej: ["Toyota", "Modelo 33", 2]
             lista3 += [[marca, x, cont2]]
             
         cont2 = 0
     estado = ""
-    for i in lista3:
+    for i in lista3: #Si la cantidad es 0 entonces imprime que no esta disponible
         if i[2]==0:
             estado = "No Disponible"
         else:
-            estado = i[2]
+            estado = i[2] # Imprime la marca, el modelo y su cantidad en caso de que haya al menos uno disponible
         print("    ",i[0],i[1],": ", estado)
+    if lista2 == []:
+        print("No disponible en la region")
+        return False
+    return True
 
-def marcas():
+def marcas(): #Crea una lista de cada marca en los vehiculos
     lista = []
     for i in vehiculos:
         if i[0] not in lista:
             lista += [i[0]]
     return lista
         
-def reservar(marca, sede, ced):
-    global reservas
+def reservar(marca, sede, ced): #Sirve para reservar un vehiculo, E: marca str, sede str, cedula str
+    global reservas, vehiculos
     salir = False
-    while salir == False:
+    while salir == False: #Lo repite hasta que salir deje de ser False
         print()
         model = input("Escriba el modelo: ")
         print()
-        x = True
+        x = False
         find = False
-        for i in vehiculos:
-
+        for i in vehiculos: # Busca que el vehiculo sea el que se pidio comprobando la marca el modelo la sede y que este disponible
             if i[0] == marca and i[1]== model and i[7] == False and find == False and sede == i[8].upper():
                 print("Disponible")
                 veh = i
+                x = True
                 find = True
-        if x == False:
+        if x == False: #Si
             x = "Disculpe " + model + " no disponible"
+            print("Regresando al menu principal")
+            print()
+            salir = True
         if x == True:
             print()
             print("Para reservar necesitamos que nos indique un dia y hora de entrega", sede)
@@ -181,6 +204,11 @@ def reservar(marca, sede, ced):
                                         i[3] = int(i[3])-priceR
                                         i[4] += [veh]
                                         print("Vehiculo reservado: ", veh[0], veh[1], veh[8])
+                                        subirReservas()
+                                        guardarReservas()
+                                        
+                                        
+                                        
                                         for i in vehiculos:
                                             if i == veh:
                                                 i[7] = True
@@ -206,6 +234,11 @@ def reservar(marca, sede, ced):
                 
         else:
             print(x)
+        escribir_vehiculos(vehiculos)
+                                        
+        vehiculos = []
+                                        
+        leer_vehiculos(vehiculos)
 
 
 
@@ -229,14 +262,15 @@ def verReservas():
             din = input("Digite su dinero: ")
             reserva = [ced,usu,num,din,[]]
             reservas += [reserva]
-            
+            subirReservas()
+            guardarReservas()
         else:
             print()
-            print("Revisar Listado de vehiculos (1), revisar vehiculos reservados (2)")
+            print("Bienvenido a Reservar")
             print()
             validar = True
             while validar:
-                res = input("Digite un numero (1) o (2): ")   
+                res = input("Revisar Listado de vehiculos (1) o revisar vehiculos reservados  (2): ")   
                 if res != '1' and res!= '2':
                     print("Respuesta Invalida")
                 elif res == '1':
@@ -273,22 +307,31 @@ def verReservas():
                             print("sede no disponible")
                     sed = sed.upper()
                     print()
-                    listaModelo(elegir)
-                    reservar(elegir, sed, ced)
-                    validar = False
-                    crear = False
+                    if listaModelo(elegir, sed):
+                        reservar(elegir, sed, ced)
+                        validar = False
+                        crear = False
 
                 elif res == '2':
+                    print()
+                    print("Tus Vehiculos Reservados: ")
                     for i in reservas:
                         if i[0] == ced:
-                            print("Vehiculos reservados: ", i[4])
+                            for j in i[4]:
+                                print("Marca: ", j[0],
+                                      "Modelo: ", j[1],
+                                      "Año: ", j[2],
+                                      "Cilindraje: ", j[3],
+                                      "Precio Alquiler x dia: ", j[4],
+                                      "Precio: ", j[5],
+                                      "Placa: ", j[6],
+                                      "Sede: ", j[8])
+                    print()
+                    validar = False
+                    crear = False
+                    break
 
-        
     return
-    
-    
-
-
 
 #Función para mostrar el inventario por sede
 def inventario_sedes(sede):
