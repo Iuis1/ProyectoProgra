@@ -9,3 +9,4 @@ Toyota,Yaris,2002,200,20000,2000000,XRL8-26,False,San Jose
 Toyota,Yaris,2001,200,20000,2000000,23568945,False,Alajuela
 Susuki,Vitara,2016,300,30000,3000000,LNJ-321,False,Guanacaste
 Chevrolet,Onix,2000,400,40000,4000000,TRZ-214,False,Puntarenas
+Mercedez,chevrolet,2024,200,19000,190000,BMC321,False,Perez Zeledon
